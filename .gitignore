@@ -1,2 +1,4 @@
 _payload.json
 __pycache__/
+
+.vercel

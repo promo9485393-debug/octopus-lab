@@ -32,7 +32,11 @@ def scan_text(name, text):
         hits.append("%s: найден маркер личного блока U+1F4BC" % name)
     low = text.lower()
     for p in PHRASES:
-        if p in low:
+        # Границы слов обязательны: «пуб-ЛИЧНЫЙ ПОРТФЕЛЬ» содержит «личный портфель»
+        # подстрокой, и без  гард отменял публикацию собственного README.
+        # Гард, который кричит на ровном месте, рано или поздно отключают —
+        # и тогда он не защищает уже ничего.
+        if re.search(r"(?<![\w-])" + re.escape(p).replace(r"\ ", r"\s+") + r"(?![\w-])", low):
             hits.append("%s: фраза о личной позиции — «%s»" % (name, p))
     for t in PRIVATE_TICKERS:
         if re.search(r"\b%s\b" % t, text):
@@ -72,9 +76,12 @@ def selftest():
         h = scan_text("тест", text)
         print("  %-8s -> %s" % (name, "поймал" if h else "❌ ПРОПУСТИЛ"))
         ok &= bool(h)
-    clean = scan_text("тест", "обычный публичный текст про пробой 20 дней")
-    print("  %-8s -> %s" % ("чистый", "молчит (верно)" if not clean else "❌ ложное срабатывание"))
-    ok &= not clean
+    for name, text in (("чистый", "обычный текст про пробой 20 дней"),
+                       ("пуб-личный", "данные: trades.json (публичный портфель)"),
+                       ("наличные", "наличные на счету и обезличенные данные")):
+        c = scan_text("тест", text)
+        print("  %-10s -> %s" % (name, "молчит (верно)" if not c else "❌ ЛОЖНОЕ: %s" % c[0]))
+        ok &= not c
     print("итог: %s" % ("гард работоспособен" if ok else "ГАРД СЛОМАН, публиковать нельзя"))
     return ok
 
