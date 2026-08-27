@@ -1,0 +1,10 @@
+
+<footer>
+  <p>Виртуальный портфель канала <a href="https://t.me/BoldOctopusTeam">@BoldOctopusTeam</a>. Разбор, а не сигнал. Не инвестиционная рекомендация.</p>
+  <p id="foot" class="stamp"></p>
+</footer>
+</div>
+<script src="app.js"></script>
+%(script)s
+</body>
+</html>

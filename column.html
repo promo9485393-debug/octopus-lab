@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Колонка — Лаборатория Осьминога</title>
+<meta name="description" content="Тексты канала @BoldOctopusTeam: разбор рынка и отчёт по книгам, включая дни, когда система ошиблась.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="brand"><a href="index.html">&#129425; Лаборатория <span>Осьминога</span></a></div>
+  <nav>
+    <a href="index.html">Стратегии</a>
+    <a href="trading.html">Торговля</a>
+    <a href="column.html">Колонка</a>
+    <a href="method.html">Метод</a>
+  </nav>
+</header>
+
+<div class="pagehead">
+  <h1>Колонка Лысого Осьминога</h1>
+  <p class="lede">Те же тексты, что выходят в <a href="https://t.me/BoldOctopusTeam">@BoldOctopusTeam</a>. Разбор рынка и отчёт по книгам — включая дни, когда система ошиблась.</p>
+</div>
+
+<section>
+  <div class="posts" id="posts"></div>
+  <p class="note" id="colnote"></p>
+</section>
+<div class="crumbs">
+  <a href="index.html">Вердикты стратегий →</a>
+  <a href="trading.html">Что торгуется и сделки →</a>
+  <a href="method.html">Как это считается →</a>
+</div>
+<footer>
+  <p>Виртуальный портфель канала <a href="https://t.me/BoldOctopusTeam">@BoldOctopusTeam</a>. Разбор, а не сигнал. Не инвестиционная рекомендация.</p>
+  <p id="foot" class="stamp"></p>
+</footer>
+</div>
+<script src="app.js"></script>
+<script>
+fetch("column.json").then(function(r){return r.json();}).then(function(d){
+  var p = d.posts || [];
+  document.getElementById("posts").innerHTML = p.map(function(x, i){
+    return '<details class="post"' + (i === 0 ? " open" : "") + '>' +
+      '<summary><span class="pdate">' + esc(x.date) + '</span>' +
+      '<span class="ptitle">' + esc(x.title) + '</span></summary>' +
+      '<div class="ptext">' + esc(x.text) + '</div>' +
+      '<a class="plink" href="' + esc(x.url) + '" target="_blank" rel="noopener">Открыть в Telegram →</a>' +
+      '</details>';
+  }).join("");
+  document.getElementById("colnote").textContent =
+    p.length + " последних постов из " + d.channel + ". Обновлено " +
+    d.generated.replace("T", " ") + ". Личные сигналы сюда не попадают: источник — " +
+    "публичная витрина канала.";
+  document.getElementById("foot").textContent = "колонка обновлена " + d.generated.replace("T", " ");
+}).catch(function(){ fail("posts", "колонку"); });
+</script>
+</body>
+</html>

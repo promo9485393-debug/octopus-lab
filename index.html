@@ -8,365 +8,82 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
-<style>
-:root{
-  --paper:#F1F2F4; --card:#FFFFFF; --ink:#15171B; --soft:#4A4F58; --mute:#767C86;
-  --rule:#DEE0E4; --firm:#C2C6CC;
-  --slate:#3C5A78;
-  --ok:#1B6E4B; --ok-bg:#E4F0EA;
-  --warn:#8A6212; --warn-bg:#F6EEDD;
-  --bad:#A32C38; --bad-bg:#F8E6E8;
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --paper:#131519; --card:#1B1E24; --ink:#E9EBEF; --soft:#AEB4BE; --mute:#7F8792;
-  --rule:#2A2E36; --firm:#3D434D;
-  --slate:#8FB0D0;
-  --ok:#5CC08C; --ok-bg:#16291F;
-  --warn:#D5A052; --warn-bg:#2B2216;
-  --bad:#E4737F; --bad-bg:#2E1A1D;
-}}
-:root[data-theme="dark"]{
-  --paper:#131519; --card:#1B1E24; --ink:#E9EBEF; --soft:#AEB4BE; --mute:#7F8792;
-  --rule:#2A2E36; --firm:#3D434D; --slate:#8FB0D0;
-  --ok:#5CC08C; --ok-bg:#16291F; --warn:#D5A052; --warn-bg:#2B2216;
-  --bad:#E4737F; --bad-bg:#2E1A1D;
-}
-*{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--ink);
-  font-family:"Public Sans",system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.6;
-  -webkit-font-smoothing:antialiased}
-.wrap{max-width:1080px;margin:0 auto;padding:0 20px 90px}
-h1,h2,h3{font-family:Archivo,system-ui,sans-serif;text-wrap:balance;margin:0}
-h1{font-size:clamp(2rem,5vw,3.1rem);font-weight:700;line-height:1.05;letter-spacing:-.02em}
-h2{font-size:1.6rem;font-weight:700;letter-spacing:-.01em;margin-bottom:6px}
-h3{font-size:1.05rem;font-weight:600}
-a{color:var(--slate)}
-.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
-
-header.top{border-bottom:2px solid var(--ink);padding:38px 0 14px;margin-bottom:30px;
-  display:flex;flex-wrap:wrap;gap:8px 20px;align-items:baseline}
-.brand{font-family:Archivo,sans-serif;font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
-.brand span{color:var(--slate)}
-nav{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap}
-nav a{font-size:.88rem;font-weight:500;text-decoration:none;color:var(--soft)}
-nav a:hover{color:var(--ink)}
-.lede{font-size:1.15rem;color:var(--soft);max-width:660px;margin:18px 0 8px}
-.lede b{color:var(--ink);font-weight:600}
-.stamp{font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.09em;
-  text-transform:uppercase;color:var(--mute)}
-
-section{margin-top:52px;scroll-margin-top:20px}
-.eyebrow{font-family:"JetBrains Mono",monospace;font-size:.7rem;font-weight:600;
-  letter-spacing:.16em;text-transform:uppercase;color:var(--mute);display:block;margin-bottom:10px}
-.sub{color:var(--soft);max-width:680px;margin:0 0 20px}
-
-/* --- вердикты --- */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(285px,1fr));gap:14px}
-.strat{background:var(--card);border:1px solid var(--rule);border-radius:2px;
-  padding:0;overflow:hidden;display:flex;flex-direction:column}
-.strat .bar{height:4px}
-.bar.confirmed{background:var(--ok)} .bar.timing_only,.bar.selection_only{background:var(--warn)}
-.bar.not_confirmed,.bar.unprofitable,.bar.overfit{background:var(--bad)}
-.strat .body{padding:15px 17px 17px;display:flex;flex-direction:column;gap:10px;flex:1}
-.tag{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:.66rem;font-weight:600;
-  letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:2px}
-.tag.confirmed{background:var(--ok-bg);color:var(--ok)}
-.tag.timing_only,.tag.selection_only{background:var(--warn-bg);color:var(--warn)}
-.tag.not_confirmed,.tag.unprofitable,.tag.overfit{background:var(--bad-bg);color:var(--bad)}
-.strat h3{line-height:1.25}
-.meta{font-family:"JetBrains Mono",monospace;font-size:.72rem;color:var(--mute)}
-.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:2px}
-.nums div{border-top:1px solid var(--rule);padding-top:7px}
-.nums dt{font-family:"JetBrains Mono",monospace;font-size:.63rem;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--mute);margin-bottom:2px}
-.nums dd{margin:0;font-family:"JetBrains Mono",monospace;font-size:1.12rem;font-weight:600}
-.pos{color:var(--ok)} .neg{color:var(--bad)}
-.spark{width:100%;height:42px;display:block}
-.nullrow{display:flex;gap:8px;align-items:baseline;font-size:.83rem;color:var(--soft);
-  border-top:1px solid var(--rule);padding-top:8px}
-.nullrow b{font-family:"JetBrains Mono",monospace;font-weight:600}
-.pass{color:var(--ok)} .fail{color:var(--bad)}
-.why{font-size:.86rem;color:var(--soft);border-left:2px solid var(--firm);padding-left:10px}
-
-/* --- таблицы --- */
-.tbox{overflow-x:auto;border:1px solid var(--rule);background:var(--card)}
-table{border-collapse:collapse;width:100%;min-width:600px;font-size:.87rem}
-th,td{padding:9px 13px;text-align:right;border-bottom:1px solid var(--rule);
-  font-variant-numeric:tabular-nums}
-th:first-child,td:first-child{text-align:left}
-thead th{font-family:"JetBrains Mono",monospace;font-size:.66rem;font-weight:600;
-  letter-spacing:.09em;text-transform:uppercase;color:var(--mute);background:var(--paper)}
-tbody td{font-family:"JetBrains Mono",monospace}
-tbody td:first-child,tbody td.txt{font-family:"Public Sans",sans-serif}
-tbody tr:last-child td{border-bottom:none}
-.pill{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:.64rem;
-  font-weight:600;padding:2px 7px;border-radius:2px;letter-spacing:.06em}
-.pill.close{background:var(--bad-bg);color:var(--bad)}
-.pill.partial{background:var(--warn-bg);color:var(--warn)}
-.pill.open{background:var(--ok-bg);color:var(--ok)}
-.pill.seed{background:var(--rule);color:var(--soft)}
-
-.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;
-  background:var(--rule);border:1px solid var(--rule);margin-bottom:20px}
-.kpi div{background:var(--card);padding:13px 15px}
-.kpi dt{font-family:"JetBrains Mono",monospace;font-size:.64rem;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--mute);margin-bottom:5px}
-.kpi dd{margin:0;font-family:Archivo,sans-serif;font-size:1.5rem;font-weight:700;
-  font-variant-numeric:tabular-nums;line-height:1}
-
-.note{font-size:.8rem;color:var(--mute);margin-top:9px;line-height:1.5}
-.method{background:var(--card);border:1px solid var(--rule);padding:20px 22px}
-.method ol{margin:0;padding-left:20px}
-.method li{margin-bottom:12px}
-.method li b{font-family:Archivo,sans-serif}
-footer{border-top:2px solid var(--ink);margin-top:64px;padding-top:18px;
-  font-size:.82rem;color:var(--mute)}
-.err{background:var(--bad-bg);color:var(--bad);padding:14px 16px;border:1px solid var(--bad)}
-
-/* --- в бою --- */
-.livebadge{display:inline-flex;align-items:center;gap:5px;font-family:"JetBrains Mono",monospace;
-  font-size:.62rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
-  padding:3px 8px;border-radius:2px;background:var(--ink);color:var(--paper)}
-.livebadge::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--ok);
-  box-shadow:0 0 0 0 var(--ok);animation:pulse 2.4s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(92,192,140,.6)}70%{box-shadow:0 0 0 7px rgba(92,192,140,0)}100%{box-shadow:0 0 0 0 rgba(92,192,140,0)}}
-@media (prefers-reduced-motion:reduce){.livebadge::before{animation:none}}
-.strat.islive{border-color:var(--firm);box-shadow:0 0 0 1px var(--firm)}
-
-.cfg{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:0 0 16px}
-.cfg article{border:1px solid var(--rule);background:var(--card);padding:15px 17px}
-.cfg h3{margin-bottom:9px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
-.cfg dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0;font-size:.84rem}
-.cfg dt{color:var(--mute)}
-.cfg dd{margin:0;font-family:"JetBrains Mono",monospace;font-variant-numeric:tabular-nums}
-.cfg .rule{margin-top:10px;padding-top:9px;border-top:1px solid var(--rule);
-  font-size:.8rem;color:var(--soft);font-family:"JetBrains Mono",monospace}
-.retired{border-left:3px solid var(--bad);background:var(--bad-bg);padding:13px 16px;
-  font-size:.86rem;margin:0 0 8px}
-.retired b{font-family:Archivo,sans-serif}
-
-/* --- колонка --- */
-.posts{display:flex;flex-direction:column;gap:1px;background:var(--rule);
-  border:1px solid var(--rule)}
-.post{background:var(--card);padding:16px 18px}
-.post summary{cursor:pointer;list-style:none;display:flex;gap:12px;align-items:baseline;
-  flex-wrap:wrap}
-.post summary::-webkit-details-marker{display:none}
-.post summary::after{content:"развернуть";margin-left:auto;font-family:"JetBrains Mono",monospace;
-  font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
-.post[open] summary::after{content:"свернуть"}
-.post .pdate{font-family:"JetBrains Mono",monospace;font-size:.72rem;color:var(--mute);
-  white-space:nowrap}
-.post .ptitle{font-family:Archivo,sans-serif;font-weight:600;font-size:1rem;flex:1;min-width:200px}
-.post .ptext{white-space:pre-wrap;font-size:.92rem;line-height:1.62;color:var(--soft);
-  margin-top:12px;padding-top:12px;border-top:1px solid var(--rule)}
-.post .plink{display:inline-block;margin-top:10px;font-size:.8rem}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="wrap">
 
 <header class="top">
-  <div class="brand">🐙 Лаборатория <span>Осьминога</span></div>
+  <div class="brand"><a href="index.html">&#129425; Лаборатория <span>Осьминога</span></a></div>
   <nav>
-    <a href="#verdicts">Стратегии</a>
-    <a href="#trading">Торговля</a>
-    <a href="#column">Колонка</a>
-    <a href="#method">Метод</a>
+    <a href="index.html">Стратегии</a>
+    <a href="trading.html">Торговля</a>
+    <a href="column.html">Колонка</a>
+    <a href="method.html">Метод</a>
   </nav>
 </header>
 
-<h1>Прибыль в бэктесте — не доказательство</h1>
-<p class="lede">Бэктест отвечает, сколько стратегия заработала бы. Он не отвечает на главный вопрос: <b>отличим ли этот результат от случайности на тех же данных.</b> Здесь каждая стратегия прогоняется против двух независимых нулей, и вердикт выносится по ним, а не по красоте кривой.</p>
-<p class="stamp" id="stamp">загрузка…</p>
+<div class="pagehead">
+  <h1>Прибыль в бэктесте — не доказательство</h1>
+  <p class="lede">Бэктест отвечает, сколько стратегия заработала бы. Он не отвечает на главный вопрос: <b>отличим ли этот результат от случайности на тех же данных.</b> Каждая стратегия здесь прогоняется против двух независимых нулей, и вердикт выносится по ним, а не по красоте кривой.</p>
+  <p class="stamp" id="stamp">загрузка…</p>
+</div>
 
 <section id="verdicts">
   <span class="eyebrow">Что проверено</span>
   <h2>Вердикты</h2>
-  <p class="sub">Зелёный — край подтверждён обоими нулями. Жёлтый — подтверждена только часть. Красный — стратегия убыточна либо неотличима от жребия. Мы публикуем и те, что провалились: три из четырёх здесь именно такие.</p>
+  <p class="sub">Зелёный — край подтверждён обоими нулями. Жёлтый — подтверждена только часть. Красный — убыточна, подогнана либо неотличима от жребия. Мы публикуем и провалившиеся проверки: их здесь большинство.</p>
   <div class="grid" id="strats"></div>
 </section>
-
-<section id="trading">
-  <span class="eyebrow">Публичный виртуальный портфель</span>
-  <h2>Торговля</h2>
-  <p class="sub">Бумажный учёт, реальные деньги не двигаются. Промахи фиксируем так же, как попадания — иначе трек-рекорд ничего не стоит.</p>
-
-  <h3 style="margin:0 0 4px">Что торгуется прямо сейчас</h3>
-  <p class="sub" style="margin-bottom:14px">Конфигурация читается из самого сканера, а не переписана руками — иначе витрина рано или поздно покажет систему, которой уже нет.</p>
-  <div class="cfg" id="cfg"></div>
-  <div id="retired"></div>
-  <p class="note" id="cfgnote"></p>
-
-  <h3 style="margin:28px 0 10px">Капитал и результат</h3>
-  <dl class="kpi" id="kpi"></dl>
-  <div class="tbox"><table id="books"></table></div>
-  <p class="note" id="booknote"></p>
-  <h3 style="margin:28px 0 10px">Лента сделок</h3>
-  <div class="tbox"><table id="trades"></table></div>
-</section>
-
-<section id="column">
-  <span class="eyebrow">Колонка Лысого Осьминога</span>
-  <h2>Что писали в канале</h2>
-  <p class="sub">Те же тексты, что выходят в <a href="https://t.me/BoldOctopusTeam">@BoldOctopusTeam</a>. Разбор рынка и отчёт по книгам — включая дни, когда система ошиблась.</p>
-  <div class="posts" id="posts"></div>
-  <p class="note" id="colnote"></p>
-</section>
-
-<section id="method">
-  <span class="eyebrow">Как это считается</span>
-  <h2>Метод</h2>
-  <div class="method">
-    <ol>
-      <li><b>Портфельный бэктест.</b> Капитал ограничен, слоты ограничены, комиссия берётся в обе стороны. Посделочный расчёт врёт: он показывал просадку $131 000 на книге в $100 000, потому что игнорировал, что денег столько нет.</li>
-      <li><b>Нуль на тайминг.</b> Те же имена, то же число сделок, те же выходы — но моменты входа выбраны наугад. Отвечает: наши <b>моменты</b> входа лучше случайных?</li>
-      <li><b>Нуль на отбор.</b> Сигналы в те же дни, но достаются случайному имени вселенной. Отвечает: наш <b>выбор имён</b> лучше жребия?</li>
-      <li><b>Поправка на множественность.</b> Считается, какой Sharpe даёт чистый шум при том числе конфигураций, что мы перебрали. Если наш ниже потолка — мы край не нашли, а подобрали.</li>
-      <li><b>Ворота прибыльности идут первыми.</b> Убыточная стратегия не может быть «подтверждённой», даже если бьёт случайность: наши шорты по акциям теряют 12,9% годовых там, где случайные теряют 16,2%. Формально лучше, практически бессмысленно.</li>
-    </ol>
-    <p class="note">Минимум 200 сидов на каждый нуль. На 20 сидах мы однажды объявили край подтверждённым, а на 200 он рассыпался — 12 из 200. Данные проверяются на покрытие и возраст перед каждым прогоном: устаревший ряд даёт правдоподобный, но ложный результат.</p>
-  </div>
-</section>
-
+<div class="crumbs">
+  <a href="trading.html">Что торгуется и сделки →</a>
+  <a href="column.html">Колонка канала →</a>
+  <a href="method.html">Как это считается →</a>
+</div>
 <footer>
   <p>Виртуальный портфель канала <a href="https://t.me/BoldOctopusTeam">@BoldOctopusTeam</a>. Разбор, а не сигнал. Не инвестиционная рекомендация.</p>
   <p id="foot" class="stamp"></p>
 </footer>
 </div>
-
+<script src="app.js"></script>
 <script>
-const fmt=(v,d=1)=>v==null?"н/д":(v>0?"+":"")+v.toFixed(d);
-const cls=v=>v==null?"":(v>0?"pos":v<0?"neg":"");
-const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-
-function spark(curve){
-  if(!curve||curve.length<2) return "";
-  const n=curve.length, lo=Math.min(...curve), hi=Math.max(...curve), W=260, H=42, P=3;
-  const X=i=>P+i*(W-2*P)/(n-1), Y=v=>H-P-(v-lo)/(hi-lo||1)*(H-2*P);
-  const line=curve.map((v,i)=>(i?"L":"M")+X(i).toFixed(1)+" "+Y(v).toFixed(1)).join(" ");
-  const up=curve[n-1]>=curve[0];
-  const col=up?"var(--ok)":"var(--bad)";
-  return `<svg class="spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">
-    <path d="${line} L${X(n-1).toFixed(1)} ${H-P} L${P} ${H-P} Z" fill="${col}" opacity=".10"/>
-    <path d="${line}" fill="none" stroke="${col}" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
+var LIVE = {books:{}};
+function liveOf(id){
+  var bs = Object.values(LIVE.books || {});
+  for (var i=0;i<bs.length;i++) if (bs[i].strategy===id) return bs[i];
+  return null;
 }
-
-function nullRow(n){
-  if(!n||n.error) return "";
-  const ok=n.passed;
-  return `<div class="nullrow"><span class="${ok?'pass':'fail'}">${ok?"✔":"✕"}</span>
-    <span style="flex:1">${esc(n.what)}</span>
-    <b class="${ok?'pass':'fail'}">${n.beat}/${n.n}</b></div>`;
-}
-
-let LIVE={books:{}};
-const liveOf=id=>Object.values(LIVE.books||{}).find(b=>b.strategy===id);
-
-fetch("live.json").then(r=>r.json()).then(d=>{
-  LIVE=d;
-  const bs=Object.values(d.books||{});
-  document.getElementById("cfg").innerHTML=bs.map(b=>`
-    <article>
-      <h3>${esc(b.title)} <span class="livebadge">в бою</span></h3>
-      <dl>
-        <dt>вселенная</dt><dd>${b.universe_size} имён</dd>
-        <dt>слотов</dt><dd>${b.slots}</dd>
-        <dt>риск на сделку</dt><dd>${b.risk_pct}%</dd>
-        <dt>потолок позиции</dt><dd>${b.max_pos_pct}%</dd>
-        <dt>работает с</dt><dd>${esc(b.since||"—")}</dd>
-      </dl>
-      <div class="rule">пробой ${b.look} дн над SMA${b.trend_sma} · стоп ${b.stop_atr} ATR ·
-      трейлинг ${b.trail_atr} ATR · лимит ${b.max_bars} баров</div>
-    </article>`).join("");
-  document.getElementById("retired").innerHTML=(d.retired||[]).map(r=>
-    `<div class="retired"><b>Снята с боевого дежурства ${esc(r.until)}:</b> ${esc(r.strategy)}. ${esc(r.why)}</div>`).join("");
-  const okScan=d.scan_state==="fresh";
-  document.getElementById("cfgnote").innerHTML=
-    `Скан: <b>${esc(d.scan_state||"неизвестно")}</b>${okScan?"":" — при таком состоянии новые входы запрещены"}, `+
-    `покрытие ${d.scan_coverage}% (${d.scan_ok} из ${d.scanned}), проверено ${esc((d.scan_at||"").replace("T"," "))}. `+
-    `Формула ${esc(d.formula_version)}, параметры <span class="mono">${esc(d.params_hash)}</span>, `+
-    `вселенная <span class="mono">${esc(d.universe_hash)}</span>.`;
-}).catch(()=>{document.getElementById("cfg").innerHTML=
-  '<div class="err">Не удалось загрузить конфигурацию книг. Это отсутствие данных, а не подтверждение, что всё в порядке.</div>';})
-  .finally(()=>loadLab());
-
-fetch("column.json").then(r=>r.json()).then(d=>{
-  const p=d.posts||[];
-  document.getElementById("posts").innerHTML=p.map((x,i)=>`
-    <details class="post"${i===0?" open":""}>
-      <summary><span class="pdate">${esc(x.date)}</span><span class="ptitle">${esc(x.title)}</span></summary>
-      <div class="ptext">${esc(x.text)}</div>
-      <a class="plink" href="${esc(x.url)}" target="_blank" rel="noopener">Открыть в Telegram →</a>
-    </details>`).join("");
-  document.getElementById("colnote").textContent=
-    `${p.length} последних постов из ${esc(d.channel)}. Обновлено ${d.generated.replace("T"," ")}. `+
-    `Личные сигналы сюда не попадают: источник — публичная витрина канала.`;
-}).catch(()=>{document.getElementById("posts").innerHTML=
-  '<div class="err">Колонка не загрузилась.</div>';});
-
 function loadLab(){
-fetch("lab.json").then(r=>r.json()).then(d=>{
-  document.getElementById("stamp").textContent =
-    "прогон "+d.generated.replace("T"," ")+" · "+d.strategies.length+" стратегий · нули по "+
-    (d.strategies[0]?.seeds??200)+" сидов";
-  document.getElementById("strats").innerHTML = d.strategies.map(s=>{
-    const st=s.overall.state, r=s.real, h=s.health, lb=liveOf(s.id);
-    const label={confirmed:"край подтверждён",timing_only:"только тайминг",
-      selection_only:"только отбор",not_confirmed:"не подтверждён",unprofitable:"убыточна",overfit:"подгонка"}[st]||st;
-    const stale=h.state!=="fresh"?` · ⚠ данные ${h.age_days} дн`:"";
-    const badge=lb?`<span class="livebadge">в бою · ${esc(lb.title.replace(/^\S+\s/,""))}</span>`:"";
-    return `<article class="strat${lb?" islive":""}"><div class="bar ${st}"></div><div class="body">
-      <span class="tag ${st}">${label}</span>${badge}
-      <h3>${esc(s.name)}</h3>
-      <div class="meta">${esc(s.universe)} · ${s.direction==="short"?"шорт":"лонг"} · ${r.trades} сделок за ${r.years} г${stale}</div>
-      ${spark(r.curve)}
-      <dl class="nums">
-        <div><dt>CAGR</dt><dd class="${cls(r.cagr)}">${fmt(r.cagr)}%</dd></div>
-        <div><dt>Sharpe</dt><dd class="${cls(r.sharpe)}">${r.sharpe.toFixed(2)}</dd></div>
-        <div><dt>просадка</dt><dd>${r.dd.toFixed(1)}%</dd></div>
-      </dl>
-      ${nullRow(s.timing)}${nullRow(s.selection)}
-      <p class="why">${esc(s.overall.text)}</p>
-    </div></article>`;
-  }).join("");
-}).catch(e=>{document.getElementById("strats").innerHTML=
-  '<div class="err">Не удалось загрузить lab.json — вердикты не показаны. Это отсутствие данных, а не отсутствие проблем.</div>';});
+  fetch("lab.json").then(function(r){return r.json();}).then(function(d){
+    document.getElementById("stamp").textContent = "прогон " + d.generated.replace("T"," ") +
+      " · " + d.strategies.length + " стратегий · нули по " +
+      ((d.strategies[0] && d.strategies[0].seeds) || 200) + " сидов";
+    document.getElementById("foot").textContent = "данные прогона " + d.generated.replace("T"," ");
+    document.getElementById("strats").innerHTML = d.strategies.map(function(s){
+      var st = s.overall.state, r = s.real, h = s.health, lb = liveOf(s.id);
+      var stale = h.state !== "fresh" ? (" · данные " + h.age_days + " дн") : "";
+      var badge = lb ? ('<span class="livebadge">в бою</span>') : "";
+      return '<article class="strat' + (lb ? " islive" : "") + '">' +
+        '<div class="bar ' + st + '"></div><div class="body">' +
+        '<span class="tag ' + st + '">' + (STATE_LABEL[st] || st) + '</span>' + badge +
+        '<h3>' + esc(s.name) + '</h3>' +
+        '<div class="meta">' + esc(s.universe) + ' · ' +
+          (s.direction === "short" ? "шорт" : "лонг") + ' · ' + r.trades +
+          ' сделок за ' + r.years + ' г' + stale + '</div>' +
+        spark(r.curve) +
+        '<dl class="nums">' +
+          '<div><dt>CAGR</dt><dd class="' + cls(r.cagr) + '">' + fmt(r.cagr) + '%</dd></div>' +
+          '<div><dt>Sharpe</dt><dd class="' + cls(r.sharpe) + '">' + r.sharpe.toFixed(2) + '</dd></div>' +
+          '<div><dt>просадка</dt><dd>' + r.dd.toFixed(1) + '%</dd></div>' +
+        '</dl>' + nullRow(s.timing) + nullRow(s.selection) +
+        '<p class="why">' + esc(s.overall.text) + '</p></div></article>';
+    }).join("");
+  }).catch(function(){ fail("strats", "вердикты"); });
 }
-
-fetch("trades.json").then(r=>r.json()).then(d=>{
-  const t=d.stats.total, s=d.summary||{};
-  document.getElementById("kpi").innerHTML=`
-    <div><dt>капитал</dt><dd>$${Math.round(s.value||0).toLocaleString("ru")}</dd></div>
-    <div><dt>результат</dt><dd class="${cls(s.pnl_pct)}">${fmt(s.pnl_pct,2)}%</dd></div>
-    <div><dt>закрыто сделок</dt><dd>${t.n}</dd></div>
-    <div><dt>прибыльных</dt><dd>${t.win_rate.toFixed(0)}%</dd></div>
-    <div><dt>медиана</dt><dd class="${cls(t.median)}">${fmt(t.median,2)}%</dd></div>`;
-
-  const bk=Object.values(d.stats.by_book);
-  document.getElementById("books").innerHTML=
-    `<thead><tr><th>Книга</th><th>Сделок</th><th>Винрейт</th><th>Медиана</th><th>Лучшая</th><th>Худшая</th><th>Итог $</th></tr></thead><tbody>`+
-    bk.map(b=>`<tr><td>${esc(b.title)}</td><td>${b.n}</td><td>${b.win_rate.toFixed(0)}%</td>
-      <td class="${cls(b.median)}">${fmt(b.median,2)}%</td>
-      <td class="pos">${fmt(b.best,1)}%</td><td class="neg">${fmt(b.worst,1)}%</td>
-      <td class="${cls(b.usd)}">${b.usd==null?"нет сумм":Math.round(b.usd).toLocaleString("ru")}</td></tr>`).join("")+
-    `</tbody>`;
-  const miss=bk.reduce((a,b)=>a+(b.usd_missing||0),0);
-  document.getElementById("booknote").textContent = miss
-    ? `У ${miss} закрытий в исходных записях нет суммы в долларах — они посчитаны в процентах, но не в итоге. Пустое поле здесь означает «нет данных», а не ноль.`
-    : "";
-
-  const tr=d.trades.slice().reverse();
-  document.getElementById("trades").innerHTML=
-    `<thead><tr><th>Дата</th><th>Книга</th><th>Что</th><th>Тикер</th><th>Результат</th></tr></thead><tbody>`+
-    tr.map(x=>`<tr><td class="mono">${esc(x.date)}</td><td class="txt">${esc(x.book_title)}</td>
-      <td class="txt"><span class="pill ${x.kind}">${esc(x.action).slice(0,34)}</span></td>
-      <td>${esc(x.ticker)}</td>
-      <td class="${cls(x.pct)}">${x.pct==null?"—":fmt(x.pct,2)+"%"}</td></tr>`).join("")+
-    `</tbody>`;
-  document.getElementById("foot").textContent="данные обновлены "+d.generated.replace("T"," ");
-}).catch(e=>{document.getElementById("kpi").innerHTML=
-  '<div class="err">Не удалось загрузить trades.json.</div>';});
+fetch("live.json").then(function(r){return r.json();})
+  .then(function(d){ LIVE = d; })
+  .catch(function(){})
+  .finally(loadLab);
 </script>
 </body>
 </html>

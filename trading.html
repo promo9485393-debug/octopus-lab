@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Торговля — Лаборатория Осьминога</title>
+<meta name="description" content="Что торгуется прямо сейчас, капитал и лента сделок публичного виртуального портфеля.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="brand"><a href="index.html">&#129425; Лаборатория <span>Осьминога</span></a></div>
+  <nav>
+    <a href="index.html">Стратегии</a>
+    <a href="trading.html">Торговля</a>
+    <a href="column.html">Колонка</a>
+    <a href="method.html">Метод</a>
+  </nav>
+</header>
+
+<div class="pagehead">
+  <h1>Торговля</h1>
+  <p class="lede">Бумажный учёт, реальные деньги не двигаются. Промахи фиксируем так же, как попадания — иначе трек-рекорд ничего не стоит.</p>
+</div>
+
+<section>
+  <span class="eyebrow">Боевые книги</span>
+  <h2>Что торгуется прямо сейчас</h2>
+  <p class="sub">Конфигурация читается из самого сканера, а не переписана руками — иначе витрина рано или поздно покажет систему, которой уже нет.</p>
+  <div class="cfg" id="cfg"></div>
+  <div id="retired"></div>
+  <p class="note" id="cfgnote"></p>
+</section>
+
+<section>
+  <span class="eyebrow">Капитал</span>
+  <h2>Результат</h2>
+  <dl class="kpi" id="kpi"></dl>
+  <div class="tbox"><table id="books"></table></div>
+  <p class="note" id="booknote"></p>
+</section>
+
+<section>
+  <span class="eyebrow">История</span>
+  <h2>Лента сделок</h2>
+  <p class="sub">Все операции с запуска портфеля: входы, частичные фиксации и закрытия.</p>
+  <div class="tbox"><table id="trades"></table></div>
+</section>
+<div class="crumbs">
+  <a href="index.html">Вердикты стратегий →</a>
+  <a href="column.html">Колонка канала →</a>
+  <a href="method.html">Как это считается →</a>
+</div>
+<footer>
+  <p>Виртуальный портфель канала <a href="https://t.me/BoldOctopusTeam">@BoldOctopusTeam</a>. Разбор, а не сигнал. Не инвестиционная рекомендация.</p>
+  <p id="foot" class="stamp"></p>
+</footer>
+</div>
+<script src="app.js"></script>
+<script>
+fetch("live.json").then(function(r){return r.json();}).then(function(d){
+  document.getElementById("cfg").innerHTML = Object.values(d.books || {}).map(function(b){
+    return '<article><h3>' + esc(b.title) + ' <span class="livebadge">в бою</span></h3>' +
+      '<dl><dt>вселенная</dt><dd>' + b.universe_size + ' имён</dd>' +
+      '<dt>слотов</dt><dd>' + b.slots + '</dd>' +
+      '<dt>риск на сделку</dt><dd>' + b.risk_pct + '%</dd>' +
+      '<dt>потолок позиции</dt><dd>' + b.max_pos_pct + '%</dd>' +
+      '<dt>работает с</dt><dd>' + esc(b.since || "—") + '</dd></dl>' +
+      '<div class="rule">пробой ' + b.look + ' дн над SMA' + b.trend_sma +
+      ' · стоп ' + b.stop_atr + ' ATR · трейлинг ' + b.trail_atr +
+      ' ATR · лимит ' + b.max_bars + ' баров</div></article>';
+  }).join("");
+  document.getElementById("retired").innerHTML = (d.retired || []).map(function(r){
+    return '<div class="retired"><b>Снята с боевого дежурства ' + esc(r.until) + ':</b> ' +
+      esc(r.strategy) + '. ' + esc(r.why) + '</div>';
+  }).join("");
+  var ok = d.scan_state === "fresh";
+  document.getElementById("cfgnote").innerHTML =
+    'Скан: <b>' + esc(d.scan_state || "неизвестно") + '</b>' +
+    (ok ? "" : " — при таком состоянии новые входы запрещены") +
+    ', покрытие ' + d.scan_coverage + '% (' + d.scan_ok + ' из ' + d.scanned + '), проверено ' +
+    esc((d.scan_at || "").replace("T", " ")) + '. Формула ' + esc(d.formula_version) +
+    ', параметры <span class="mono">' + esc(d.params_hash) + '</span>.';
+}).catch(function(){ fail("cfg", "конфигурацию книг"); });
+
+fetch("trades.json").then(function(r){return r.json();}).then(function(d){
+  var t = d.stats.total, s = d.summary || {};
+  document.getElementById("kpi").innerHTML =
+    '<div><dt>капитал</dt><dd>$' + Math.round(s.value || 0).toLocaleString("ru") + '</dd></div>' +
+    '<div><dt>результат</dt><dd class="' + cls(s.pnl_pct) + '">' + fmt(s.pnl_pct, 2) + '%</dd></div>' +
+    '<div><dt>закрыто сделок</dt><dd>' + t.n + '</dd></div>' +
+    '<div><dt>прибыльных</dt><dd>' + t.win_rate.toFixed(0) + '%</dd></div>' +
+    '<div><dt>медиана</dt><dd class="' + cls(t.median) + '">' + fmt(t.median, 2) + '%</dd></div>';
+  var bk = Object.values(d.stats.by_book);
+  document.getElementById("books").innerHTML =
+    '<thead><tr><th>Книга</th><th>Сделок</th><th>Винрейт</th><th>Медиана</th>' +
+    '<th>Лучшая</th><th>Худшая</th><th>Итог $</th></tr></thead><tbody>' +
+    bk.map(function(b){
+      return '<tr><td>' + esc(b.title) + '</td><td>' + b.n + '</td><td>' +
+        b.win_rate.toFixed(0) + '%</td><td class="' + cls(b.median) + '">' + fmt(b.median, 2) +
+        '%</td><td class="pos">' + fmt(b.best, 1) + '%</td><td class="neg">' + fmt(b.worst, 1) +
+        '%</td><td class="' + cls(b.usd) + '">' +
+        (b.usd == null ? "нет сумм" : Math.round(b.usd).toLocaleString("ru")) + '</td></tr>';
+    }).join("") + '</tbody>';
+  var miss = bk.reduce(function(a, b){ return a + (b.usd_missing || 0); }, 0);
+  document.getElementById("booknote").textContent = miss
+    ? ("У " + miss + " закрытий в исходных записях нет суммы в долларах — они посчитаны в процентах, " +
+       "но не в итоге. Пустое поле здесь означает «нет данных», а не ноль.") : "";
+  document.getElementById("trades").innerHTML =
+    '<thead><tr><th>Дата</th><th>Книга</th><th>Что</th><th>Тикер</th><th>Результат</th></tr></thead><tbody>' +
+    d.trades.slice().reverse().map(function(x){
+      return '<tr><td class="mono">' + esc(x.date) + '</td><td class="txt">' + esc(x.book_title) +
+        '</td><td class="txt"><span class="pill ' + x.kind + '">' + esc(x.action).slice(0, 34) +
+        '</span></td><td>' + esc(x.ticker) + '</td><td class="' + cls(x.pct) + '">' +
+        (x.pct == null ? "—" : fmt(x.pct, 2) + "%") + '</td></tr>';
+    }).join("") + '</tbody>';
+  document.getElementById("foot").textContent = "данные обновлены " + d.generated.replace("T", " ");
+}).catch(function(){ fail("kpi", "данные портфеля"); });
+</script>
+</body>
+</html>
