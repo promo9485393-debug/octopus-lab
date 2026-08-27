@@ -46,6 +46,13 @@
 </section>
 
 <section>
+  <span class="eyebrow">Открытые позиции</span>
+  <h2>Что в портфеле</h2>
+  <p class="sub">Всё, что держится прямо сейчас, по книгам. Цены и переоценка — на дату последнего обновления портфеля.</p>
+  <div id="holdings"></div>
+</section>
+
+<section>
   <span class="eyebrow">История</span>
   <h2>Лента сделок</h2>
   <p class="sub">Все операции с запуска портфеля: входы, частичные фиксации и закрытия.</p>
@@ -119,6 +126,33 @@ fetch("trades.json").then(function(r){return r.json();}).then(function(d){
         '</span></td><td>' + esc(x.ticker) + '</td><td class="' + cls(x.pct) + '">' +
         (x.pct == null ? "—" : fmt(x.pct, 2) + "%") + '</td></tr>';
     }).join("") + '</tbody>';
+  var books = d.books || [];
+  document.getElementById("holdings").innerHTML = books.filter(function(b){
+    return (b.positions || []).length;
+  }).map(function(b){
+    var rows = b.positions.slice().sort(function(x, y){
+      return (y.pnl_pct || 0) - (x.pnl_pct || 0);
+    }).map(function(p){
+      var st = p.status === "ok" ? "ok" : (p.status === "bad" ? "bad" : "warn");
+      var px = function(v){ return v == null ? "—" : (v < 10 ? v.toFixed(4) : v.toFixed(2)); };
+      return '<tr><td><span class="st ' + st + '"></span>' + esc(p.ticker) + '</td>' +
+        '<td>' + px(p.buy) + '</td><td>' + px(p.price) + '</td>' +
+        '<td class="' + cls(p.pnl_pct) + '">' + fmt(p.pnl_pct, 2) + '%</td>' +
+        '<td class="' + cls(p.pnl_abs) + '">' + (p.pnl_abs == null ? "—" :
+          (p.pnl_abs > 0 ? "+" : "") + Math.round(p.pnl_abs).toLocaleString("ru")) + '</td>' +
+        '<td>' + (p.size == null ? "—" : Math.round(p.size).toLocaleString("ru")) + '</td>' +
+        '<td class="txt">' + esc(p.stop || "—") + '</td>' +
+        '<td class="txt">' + esc(p.target || "—") + '</td></tr>';
+    }).join("");
+    return '<article class="bookcard"><header><h3>' + esc(b.title) + '</h3>' +
+      '<span class="bpnl ' + cls(b.pnl_pct) + '">' + fmt(b.pnl_pct, 2) + '%</span>' +
+      '<span class="bmeta">' + b.positions.length + ' позиций · стоимость $' +
+      Math.round(b.value || 0).toLocaleString("ru") + ' · кэш $' +
+      Math.round(b.cash || 0).toLocaleString("ru") + '</span></header>' +
+      '<div class="tbox"><table><thead><tr><th>Тикер</th><th>Вход</th><th>Сейчас</th>' +
+      '<th>%</th><th>$</th><th>Размер</th><th>Стоп</th><th>Цели</th></tr></thead>' +
+      '<tbody>' + rows + '</tbody></table></div></article>';
+  }).join("");
   document.getElementById("foot").textContent = "данные обновлены " + d.generated.replace("T", " ");
 }).catch(function(){ fail("kpi", "данные портфеля"); });
 </script>

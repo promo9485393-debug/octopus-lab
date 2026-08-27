@@ -178,3 +178,16 @@ section:first-of-type{margin-top:34px}
 .crumbs a{font-family:"JetBrains Mono",monospace;font-size:.76rem;letter-spacing:.05em;
   text-decoration:none;border:1px solid var(--rule);padding:8px 13px;color:var(--soft);background:var(--card)}
 .crumbs a:hover{border-color:var(--firm);color:var(--ink)}
+
+/* --- состав портфеля --- */
+.bookcard{border:1px solid var(--rule);background:var(--card);margin-bottom:14px}
+.bookcard header{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline;
+  padding:14px 17px;border-bottom:1px solid var(--rule);background:var(--paper)}
+.bookcard h3{font-size:1.05rem}
+.bookcard .bmeta{font-family:"JetBrains Mono",monospace;font-size:.74rem;color:var(--mute);
+  margin-left:auto;font-variant-numeric:tabular-nums}
+.bookcard .bpnl{font-family:"JetBrains Mono",monospace;font-size:1.05rem;font-weight:600}
+.bookcard table{min-width:520px}
+.bookcard thead th{background:var(--card)}
+.st{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px}
+.st.ok{background:var(--ok)} .st.warn{background:var(--warn)} .st.bad{background:var(--bad)}
