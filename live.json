@@ -1,12 +1,12 @@
 {
- "generated": "2026-08-27T16:52:14",
+ "generated": "2026-08-27T18:01:22",
  "formula_version": "breakout20-trail6-v2",
- "params_hash": "b669ee69a559",
+ "params_hash": "9ccddc4fb1a7",
  "universe_hash": "e8b298884b88",
  "scan_state": "fresh",
  "scan_coverage": 100.0,
- "scan_at": "2026-08-27T16:48:24",
- "fresh_until": "2026-08-28T22:48:24",
+ "scan_at": "2026-08-27T17:53:50",
+ "fresh_until": "2026-08-28T23:53:50",
  "scanned": 185,
  "scan_ok": 185,
  "scan_failed": 0,
@@ -27,11 +27,11 @@
   },
   "crypto_swing": {
    "title": "🎯 Крипта — свинг",
-   "strategy": "breakout20-crypto",
-   "since": "2026-08-17",
+   "strategy": "breakout20-crypto-half",
+   "since": "2026-08-27",
    "universe_size": 15,
    "slots": 8,
-   "risk_pct": 1.0,
+   "risk_pct": 0.5,
    "max_pos_pct": 12.0,
    "look": 20,
    "stop_atr": 2.0,
@@ -41,6 +41,11 @@
   }
  },
  "retired": [
+  {
+   "strategy": "breakout20-crypto",
+   "until": "2026-08-27",
+   "why": "Риск 1,0% платился за недоказанный край: отбор имён в этой книге неотличим от жребия (83/200), тайминг проходил на грани (7/200). Урезание вдвое сохранило две трети доходности, срезало просадку с 33,3% до 17,5% и усилило сам нуль по таймингу до 0/200 — большая просадка глушила сигнал."
+  },
   {
    "strategy": "breakout20-stocks",
    "until": "2026-08-27",
