@@ -66,13 +66,13 @@ section{margin-top:52px;scroll-margin-top:20px}
   padding:0;overflow:hidden;display:flex;flex-direction:column}
 .strat .bar{height:4px}
 .bar.confirmed{background:var(--ok)} .bar.timing_only,.bar.selection_only{background:var(--warn)}
-.bar.not_confirmed,.bar.unprofitable{background:var(--bad)}
+.bar.not_confirmed,.bar.unprofitable,.bar.overfit{background:var(--bad)}
 .strat .body{padding:15px 17px 17px;display:flex;flex-direction:column;gap:10px;flex:1}
 .tag{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:.66rem;font-weight:600;
   letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:2px}
 .tag.confirmed{background:var(--ok-bg);color:var(--ok)}
 .tag.timing_only,.tag.selection_only{background:var(--warn-bg);color:var(--warn)}
-.tag.not_confirmed,.tag.unprofitable{background:var(--bad-bg);color:var(--bad)}
+.tag.not_confirmed,.tag.unprofitable,.tag.overfit{background:var(--bad-bg);color:var(--bad)}
 .strat h3{line-height:1.25}
 .meta{font-family:"JetBrains Mono",monospace;font-size:.72rem;color:var(--mute)}
 .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:2px}
@@ -313,7 +313,7 @@ fetch("lab.json").then(r=>r.json()).then(d=>{
   document.getElementById("strats").innerHTML = d.strategies.map(s=>{
     const st=s.overall.state, r=s.real, h=s.health, lb=liveOf(s.id);
     const label={confirmed:"край подтверждён",timing_only:"только тайминг",
-      selection_only:"только отбор",not_confirmed:"не подтверждён",unprofitable:"убыточна"}[st]||st;
+      selection_only:"только отбор",not_confirmed:"не подтверждён",unprofitable:"убыточна",overfit:"подгонка"}[st]||st;
     const stale=h.state!=="fresh"?` · ⚠ данные ${h.age_days} дн`:"";
     const badge=lb?`<span class="livebadge">в бою · ${esc(lb.title.replace(/^\S+\s/,""))}</span>`:"";
     return `<article class="strat${lb?" islive":""}"><div class="bar ${st}"></div><div class="body">
