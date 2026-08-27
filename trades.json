@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-27T20:56:09",
+ "generated": "2026-08-27T21:03:53",
  "meta": {
   "name": "Портфель Осьминога",
   "channel": "@BoldOctopusTeam",
@@ -18,14 +18,14 @@
   "pending_execution": [],
   "rule_change": "23.08.2026: фиксация прибыли по достигнутым целям стала АВТОМАТИЧЕСКОЙ и не требует согласования. T1 → половина, T2 → остаток. Порог только по закрытию, исполнение по цене момента, на закрытой бирже — ближайшим открытием.",
   "executed_today": "24.08.2026: очередь фиксаций, поставленная 23.08 на «ближайшее открытие», исполнена целиком в первый же торговый день. Задержка исполнения сыграла в РАЗНЫЕ стороны и это записано честно: AAVE продан по $134,07 при подтверждающем закрытии $141,51 — сутки ожидания стоили 5,2% (вчера такая же задержка принесла плюс). Метод один, знак результата случаен.",
-  "day": 67
+  "day": 68
  },
  "summary": {
-  "value": 454823.2,
+  "value": 453853.0,
   "invested": 264000.0,
   "cash": 143140.0,
-  "pnl_abs": 54823.2,
-  "pnl_pct": 13.71,
+  "pnl_abs": 53853.0,
+  "pnl_pct": 13.46,
   "wins": 9,
   "losses": 6,
   "realized_pnl": 7139.6
@@ -217,17 +217,17 @@
    "id": "stocks_lt",
    "title": "🏛 Акции/ETF — долгосрок",
    "horizon": "6–24 мес",
-   "value": 100133.9,
+   "value": 100050.4,
    "cash": 53901.7,
-   "pnl_pct": 0.13,
+   "pnl_pct": 0.05,
    "positions": [
     {
      "ticker": "NVDA",
      "buy": 210.69,
-     "price": 228.26,
+     "price": 227.98,
      "size": 12000,
-     "pnl_pct": 8.34,
-     "pnl_abs": 1000.8,
+     "pnl_pct": 8.21,
+     "pnl_abs": 985.2,
      "stop": "<$170",
      "target": "276 / 330",
      "status": "ok"
@@ -235,10 +235,10 @@
     {
      "ticker": "CCJ",
      "buy": 107.88,
-     "price": 106.52,
+     "price": 106.33,
      "size": 10000,
-     "pnl_pct": -1.26,
-     "pnl_abs": -126.0,
+     "pnl_pct": -1.44,
+     "pnl_abs": -144.0,
      "stop": "<$80",
      "target": "125 / 150",
      "status": "ok"
@@ -246,10 +246,10 @@
     {
      "ticker": "NU",
      "buy": 12.71,
-     "price": 14.94,
+     "price": 14.88,
      "size": 9000,
-     "pnl_pct": 17.55,
-     "pnl_abs": 1579.5,
+     "pnl_pct": 17.07,
+     "pnl_abs": 1536.3,
      "stop": "<$10",
      "target": "16 / 19",
      "status": "ok"
@@ -257,10 +257,10 @@
     {
      "ticker": "GD",
      "buy": 350.01,
-     "price": 379.9,
+     "price": 380.06,
      "size": 4500.0,
-     "pnl_pct": 8.54,
-     "pnl_abs": 384.3,
+     "pnl_pct": 8.59,
+     "pnl_abs": 386.6,
      "stop": "<$300",
      "target": "390 ✅ (половина зафиксирована) / 430",
      "status": "ok"
@@ -268,10 +268,10 @@
     {
      "ticker": "GDX",
      "buy": 87.24,
-     "price": 103.76,
+     "price": 103.69,
      "size": 4000.0,
-     "pnl_pct": 18.94,
-     "pnl_abs": 757.6,
+     "pnl_pct": 18.86,
+     "pnl_abs": 754.4,
      "stop": "<$70",
      "target": "96 ✅ (половина зафиксирована) / 110",
      "status": "ok"
@@ -279,10 +279,10 @@
     {
      "ticker": "SRRK",
      "buy": 47.33,
-     "price": 59.37,
+     "price": 59.26,
      "size": 2500.0,
-     "pnl_pct": 25.44,
-     "pnl_abs": 636.0,
+     "pnl_pct": 25.21,
+     "pnl_abs": 630.2,
      "stop": "<$34",
      "target": "60 ✅ (половина зафиксирована) / 80",
      "status": "ok"
@@ -293,17 +293,17 @@
    "id": "crypto_lt",
    "title": "🌊 Крипта — долгосрок",
    "horizon": "цикл",
-   "value": 135575.5,
+   "value": 135127.9,
    "cash": 58649.3,
-   "pnl_pct": 35.58,
+   "pnl_pct": 35.13,
    "positions": [
     {
      "ticker": "BTC",
      "buy": 63659,
-     "price": 80025.01,
+     "price": 79882.89,
      "size": 14000,
-     "pnl_pct": 25.71,
-     "pnl_abs": 3599.4,
+     "pnl_pct": 25.49,
+     "pnl_abs": 3568.6,
      "stop": "мес.<$56k",
      "target": "84k / 126k",
      "status": "ok"
@@ -311,10 +311,10 @@
     {
      "ticker": "ETH",
      "buy": 1726,
-     "price": 2506.99,
+     "price": 2497.62,
      "size": 6000.0,
-     "pnl_pct": 45.25,
-     "pnl_abs": 2715.0,
+     "pnl_pct": 44.71,
+     "pnl_abs": 2682.6,
      "stop": "<$1400",
      "target": "2 400 ✅ (половина зафиксирована) / 3 800",
      "status": "ok"
@@ -322,10 +322,10 @@
     {
      "ticker": "SOL",
      "buy": 71.46,
-     "price": 109.38,
+     "price": 108.95,
      "size": 10000,
-     "pnl_pct": 53.06,
-     "pnl_abs": 5306.0,
+     "pnl_pct": 52.46,
+     "pnl_abs": 5246.0,
      "stop": "нед.<$52",
      "target": "110 / 180",
      "status": "ok"
@@ -333,10 +333,10 @@
     {
      "ticker": "UNI",
      "buy": 3.013,
-     "price": 4.62,
+     "price": 4.582,
      "size": 4000.0,
-     "pnl_pct": 53.34,
-     "pnl_abs": 2133.6,
+     "pnl_pct": 52.07,
+     "pnl_abs": 2082.8,
      "stop": "<$1.80",
      "target": "4.20 ✅ (половина зафиксирована) / 6.50",
      "status": "ok"
@@ -344,10 +344,10 @@
     {
      "ticker": "PENDLE",
      "buy": 1.392,
-     "price": 1.786,
+     "price": 1.78,
      "size": 7000,
-     "pnl_pct": 28.3,
-     "pnl_abs": 1981.0,
+     "pnl_pct": 27.87,
+     "pnl_abs": 1950.9,
      "stop": "<$0.95",
      "target": "2.20 / 3.50",
      "status": "ok"
@@ -355,10 +355,10 @@
     {
      "ticker": "XRP",
      "buy": 1.15,
-     "price": 1.4518,
+     "price": 1.4505,
      "size": 7000,
-     "pnl_pct": 26.24,
-     "pnl_abs": 1836.8,
+     "pnl_pct": 26.13,
+     "pnl_abs": 1829.1,
      "stop": "<$0.95",
      "target": "1.60 / 2.40",
      "status": "ok"
@@ -366,10 +366,10 @@
     {
      "ticker": "ENA",
      "buy": 0.0892,
-     "price": 0.1688,
+     "price": 0.1653,
      "size": 6000,
-     "pnl_pct": 89.24,
-     "pnl_abs": 5354.4,
+     "pnl_pct": 85.31,
+     "pnl_abs": 5118.6,
      "stop": "<$0.06",
      "target": "0.18 / 0.35",
      "status": "ok"
@@ -380,17 +380,17 @@
    "id": "stocks_swing",
    "title": "⚡ Акции/ETF — свинг",
    "horizon": "3–30 дн",
-   "value": 102628.2,
+   "value": 102516.7,
    "cash": 26589.05,
-   "pnl_pct": 2.63,
+   "pnl_pct": 2.52,
    "positions": [
     {
      "ticker": "NFLX",
      "buy": 80.1744,
-     "price": 80.17,
+     "price": 79.84,
      "size": 12000.0,
-     "pnl_pct": -0.01,
-     "pnl_abs": -1.2,
+     "pnl_pct": -0.42,
+     "pnl_abs": -50.4,
      "stop": "трейл 75.53",
      "target": "трейлинг 6 ATR",
      "status": "ok"
@@ -398,10 +398,10 @@
     {
      "ticker": "CRM",
      "buy": 205.220001,
-     "price": 253.47,
+     "price": 252.05,
      "size": 12000.0,
-     "pnl_pct": 23.51,
-     "pnl_abs": 2821.2,
+     "pnl_pct": 22.82,
+     "pnl_abs": 2738.4,
      "stop": "трейл 192",
      "target": "трейлинг 6 ATR",
      "status": "ok"
@@ -409,10 +409,10 @@
     {
      "ticker": "COIN",
      "buy": 180.059998,
-     "price": 190.36,
+     "price": 190.72,
      "size": 12000.0,
-     "pnl_pct": 5.72,
-     "pnl_abs": 686.4,
+     "pnl_pct": 5.92,
+     "pnl_abs": 710.4,
      "stop": "трейл 163.7",
      "target": "трейлинг 6 ATR",
      "status": "ok"
@@ -420,10 +420,10 @@
     {
      "ticker": "MSTR",
      "buy": 119.779999,
-     "price": 137.45,
+     "price": 137.4,
      "size": 12000.0,
-     "pnl_pct": 14.75,
-     "pnl_abs": 1770.0,
+     "pnl_pct": 14.71,
+     "pnl_abs": 1765.2,
      "stop": "трейл 108.2",
      "target": "трейлинг 6 ATR",
      "status": "ok"
@@ -431,10 +431,10 @@
     {
      "ticker": "DE",
      "buy": 653.039978,
-     "price": 623.17,
+     "price": 622.66,
      "size": 12000.0,
-     "pnl_pct": -4.57,
-     "pnl_abs": -548.4,
+     "pnl_pct": -4.65,
+     "pnl_abs": -558.0,
      "stop": "трейл 613.4",
      "target": "трейлинг 6 ATR",
      "status": "ok"
@@ -442,10 +442,10 @@
     {
      "ticker": "UBER",
      "buy": 81.559998,
-     "price": 76.88,
+     "price": 76.95,
      "size": 12000.0,
-     "pnl_pct": -5.74,
-     "pnl_abs": -688.8,
+     "pnl_pct": -5.65,
+     "pnl_abs": -678.0,
      "stop": "трейл 76.02",
      "target": "трейлинг 6 ATR",
      "status": "ok"
@@ -456,17 +456,17 @@
    "id": "crypto_swing",
    "title": "🎯 Крипта — свинг",
    "horizon": "3–21 дн",
-   "value": 116485.6,
+   "value": 116158.0,
    "cash": 4000.0,
-   "pnl_pct": 16.49,
+   "pnl_pct": 16.16,
    "positions": [
     {
      "ticker": "BNB",
      "buy": 627.51,
-     "price": 711.04,
+     "price": 709.66,
      "size": 12000.0,
-     "pnl_pct": 13.31,
-     "pnl_abs": 1597.2,
+     "pnl_pct": 13.09,
+     "pnl_abs": 1570.8,
      "stop": "трейл 618.1",
      "target": "трейлинг 6 ATR",
      "status": "ok"
@@ -474,10 +474,10 @@
     {
      "ticker": "BTC",
      "buy": 69334.78,
-     "price": 80025.01,
+     "price": 79882.89,
      "size": 12000.0,
-     "pnl_pct": 15.42,
-     "pnl_abs": 1850.4,
+     "pnl_pct": 15.21,
+     "pnl_abs": 1825.2,
      "stop": "трейл 6.744e+04",
      "target": "трейлинг 6 ATR",
      "status": "ok"
@@ -485,10 +485,10 @@
     {
      "ticker": "LTC",
      "buy": 46.8,
-     "price": 50.08,
+     "price": 49.9,
      "size": 12000.0,
-     "pnl_pct": 7.01,
-     "pnl_abs": 841.2,
+     "pnl_pct": 6.62,
+     "pnl_abs": 794.4,
      "stop": "трейл 44.82",
      "target": "трейлинг 6 ATR",
      "status": "ok"
@@ -496,10 +496,10 @@
     {
      "ticker": "DOGE",
      "buy": 0.07504,
-     "price": 0.08876,
+     "price": 0.08842,
      "size": 12000.0,
-     "pnl_pct": 18.28,
-     "pnl_abs": 2193.6,
+     "pnl_pct": 17.83,
+     "pnl_abs": 2139.6,
      "stop": "трейл 0.07306",
      "target": "трейлинг 6 ATR",
      "status": "ok"
@@ -507,10 +507,10 @@
     {
      "ticker": "ETH",
      "buy": 2252.81,
-     "price": 2506.99,
+     "price": 2497.62,
      "size": 12000.0,
-     "pnl_pct": 11.28,
-     "pnl_abs": 1353.6,
+     "pnl_pct": 10.87,
+     "pnl_abs": 1304.4,
      "stop": "трейл 2126",
      "target": "трейлинг 6 ATR",
      "status": "ok"
@@ -518,10 +518,10 @@
     {
      "ticker": "SOL",
      "buy": 85.39,
-     "price": 109.38,
+     "price": 108.95,
      "size": 12000.0,
-     "pnl_pct": 28.09,
-     "pnl_abs": 3370.8,
+     "pnl_pct": 27.59,
+     "pnl_abs": 3310.8,
      "stop": "трейл 80.4",
      "target": "трейлинг 6 ATR",
      "status": "ok"
@@ -529,10 +529,10 @@
     {
      "ticker": "XRP",
      "buy": 1.1059,
-     "price": 1.4518,
+     "price": 1.4505,
      "size": 12000.0,
-     "pnl_pct": 31.28,
-     "pnl_abs": 3753.6,
+     "pnl_pct": 31.16,
+     "pnl_abs": 3739.2,
      "stop": "трейл 1.203",
      "target": "трейлинг 6 ATR",
      "status": "ok"
@@ -540,10 +540,10 @@
     {
      "ticker": "LINK",
      "buy": 10.557,
-     "price": 11.899,
+     "price": 11.853,
      "size": 12000.0,
-     "pnl_pct": 12.71,
-     "pnl_abs": 1525.2,
+     "pnl_pct": 12.28,
+     "pnl_abs": 1473.6,
      "stop": "трейл 9.791",
      "target": "трейлинг 6 ATR",
      "status": "ok"
