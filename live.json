@@ -1,21 +1,21 @@
 {
- "generated": "2026-08-27T20:54:58",
+ "generated": "2026-08-28T09:15:01",
  "formula_version": "breakout20-trail6-v2",
  "params_hash": "9ccddc4fb1a7",
- "universe_hash": "e8b298884b88",
+ "universe_hash": "8db95d51aa46",
  "scan_state": "fresh",
  "scan_coverage": 100.0,
- "scan_at": "2026-08-27T20:41:19",
- "fresh_until": "2026-08-29T02:41:19",
- "scanned": 185,
- "scan_ok": 185,
+ "scan_at": "2026-08-28T09:14:05",
+ "fresh_until": "2026-08-29T15:14:05",
+ "scanned": 197,
+ "scan_ok": 197,
  "scan_failed": 0,
  "books": {
   "stocks_swing": {
    "title": "⚡ Акции — свинг",
-   "strategy": "breakout20-wide16",
-   "since": "2026-08-27",
-   "universe_size": 167,
+   "strategy": "breakout20-wide16-all",
+   "since": "2026-08-28",
+   "universe_size": 182,
    "slots": 16,
    "risk_pct": 1.5,
    "max_pos_pct": 12.0,
@@ -41,6 +41,11 @@
   }
  },
  "retired": [
+  {
+   "strategy": "breakout20-wide16",
+   "until": "2026-08-28",
+   "why": "Вселенная из 167 имён исключала пятнадцать «очевидных победителей». Это был КОНТРОЛЬ ДЛЯ БЭКТЕСТА, а не правило торговли: в прошлое их включать нельзя, потому что мы знаем, что они выросли, в будущее можно — завтрашний рост никому не известен. 27.08 PLTR дал настоящий пробой, а система не могла его взять. Торгуем все 182 имени; честной оценкой силы правила остаются 18,2% на чистых 167."
+  },
   {
    "strategy": "breakout20-crypto",
    "until": "2026-08-27",
