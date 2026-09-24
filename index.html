@@ -48,21 +48,46 @@
 <script src="app.js"></script>
 <script>
 var LIVE = {books:{}};
+var DAY = 864e5, RUN_STALE_DAYS = 3;
 function liveOf(id){
   var bs = Object.values(LIVE.books || {});
   for (var i=0;i<bs.length;i++) if (bs[i].strategy===id) return bs[i];
   return null;
 }
+// Свежесть СЕЙЧАС, а не в момент прогона. health.state и age_days — снимок на момент
+// расчёта: у прогона 28.08 там навсегда «fresh, 1 дн», и без сравнения с часами зрителя
+// месячные данные выглядят свежими. То же со сканом: fresh_until опубликован, но раньше
+// страница его ни с чем не сравнивала.
+function ms(s){ var t = s ? Date.parse(s) : NaN; return isNaN(t) ? null : t; }
+function daysSince(s){ var t = ms(s); return t == null ? null : Math.floor((Date.now() - t) / DAY); }
+function scanExpired(d){
+  var fu = ms(d.fresh_until_utc) || ms(d.fresh_until);   // _utc — с явным поясом
+  return fu != null && Date.now() > fu;
+}
+function scanWhen(d){
+  return d.scan_at_utc ? d.scan_at_utc.replace("T", " ").replace(/:\d\dZ$/, " UTC")
+                       : String(d.scan_at || "?").replace("T", " ");
+}
 function loadLab(){
   fetch("lab.json").then(function(r){return r.json();}).then(function(d){
+    var runAge = daysSince(d.generated);
     document.getElementById("stamp").textContent = "прогон " + d.generated.replace("T"," ") +
+      (runAge != null && runAge > RUN_STALE_DAYS ? " (" + runAge + " дн назад)" : "") +
       " · " + d.strategies.length + " стратегий · нули по " +
-      ((d.strategies[0] && d.strategies[0].seeds) || 200) + " сидов";
+      ((d.strategies[0] && d.strategies[0].seeds) || 200) + " сидов" +
+      (LIVE.books && Object.keys(LIVE.books).length && scanExpired(LIVE)
+        ? " · скан боевых книг: устарело (данные от " + scanWhen(LIVE) + ")" : "");
     document.getElementById("foot").textContent = "данные прогона " + d.generated.replace("T"," ");
     document.getElementById("strats").innerHTML = d.strategies.map(function(s){
       var st = s.overall.state, r = s.real, h = s.health, lb = liveOf(s.id);
-      var stale = h.state !== "fresh" ? (" · данные " + h.age_days + " дн") : "";
-      var badge = lb ? ('<span class="livebadge">в бою</span>') : "";
+      var ranAge = daysSince(s.ran_at || d.generated);
+      var dataAge = daysSince(h.last_bar);
+      var stale = (ranAge != null && ranAge > RUN_STALE_DAYS)
+        ? (' · <span style="color:var(--warn)">данные ' +
+           (dataAge != null ? dataAge : ranAge) + ' дн</span>')
+        : (h.state !== "fresh" ? (" · данные " + h.age_days + " дн") : "");
+      var badge = lb ? ('<span class="livebadge">в бою</span>' +
+        (scanExpired(LIVE) ? ' <span class="stamp" style="color:var(--warn)">скан устарел</span>' : "")) : "";
       return '<article class="strat' + (lb ? " islive" : "") + '">' +
         '<div class="bar ' + st + '"></div><div class="body">' +
         '<span class="tag ' + st + '">' + (STATE_LABEL[st] || st) + '</span>' + badge +

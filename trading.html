@@ -80,18 +80,28 @@ fetch("live.json").then(function(r){return r.json();}).then(function(d){
       '<dt>работает с</dt><dd>' + esc(b.since || "—") + '</dd></dl>' +
       '<div class="rule">пробой ' + b.look + ' дн над SMA' + b.trend_sma +
       ' · стоп ' + b.stop_atr + ' ATR · трейлинг ' + b.trail_atr +
-      ' ATR · лимит ' + b.max_bars + ' баров</div></article>';
+      ' ATR · выход по времени через ' + b.max_bars + ' баров в позиции</div></article>';
   }).join("");
   document.getElementById("retired").innerHTML = (d.retired || []).map(function(r){
     return '<div class="retired"><b>Снята с боевого дежурства ' + esc(r.until) + ':</b> ' +
       esc(r.strategy) + '. ' + esc(r.why) + '</div>';
   }).join("");
-  var ok = d.scan_state === "fresh";
+  // «fresh» — состояние НА МОМЕНТ скана. Если срок свежести fresh_until уже прошёл, а
+  // нового скана нет, страница показывала бы «fresh» сколько угодно долго: сравниваем с
+  // часами зрителя. fresh_until_utc несёт явный пояс; fresh_until — местное время ПК
+  // рутины (запасной путь для старого live.json).
+  var fuT = Date.parse(d.fresh_until_utc || d.fresh_until || "");
+  var expired = !isNaN(fuT) && Date.now() > fuT;
+  var when = d.scan_at_utc ? d.scan_at_utc.replace("T", " ").replace(/:\d\dZ$/, " UTC")
+                           : (d.scan_at || "?").replace("T", " ");
+  var ok = d.scan_state === "fresh" && !expired;
   document.getElementById("cfgnote").innerHTML =
-    'Скан: <b>' + esc(d.scan_state || "неизвестно") + '</b>' +
-    (ok ? "" : " — при таком состоянии новые входы запрещены") +
+    'Скан: <b' + (expired ? ' style="color:var(--warn)"' : '') + '>' +
+    esc(expired ? "устарело (данные от " + when + ")" : (d.scan_state || "неизвестно")) + '</b>' +
+    (expired ? " — срок свежести отчёта сканера истёк, нового скана нет; текущее состояние книг неизвестно"
+             : (ok ? "" : " — при таком состоянии новые входы запрещены")) +
     ', покрытие ' + d.scan_coverage + '% (' + d.scan_ok + ' из ' + d.scanned + '), проверено ' +
-    esc((d.scan_at || "").replace("T", " ")) + '. Формула ' + esc(d.formula_version) +
+    esc(when) + '. Формула ' + esc(d.formula_version) +
     ', параметры <span class="mono">' + esc(d.params_hash) + '</span>.';
 }).catch(function(){ fail("cfg", "конфигурацию книг"); });
 
