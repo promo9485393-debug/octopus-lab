@@ -1,20 +1,23 @@
 {
- "generated": "2026-09-23T20:00:22",
- "formula_version": "breakout20-trail6-v2",
- "params_hash": "ee1c9824dfb6",
+ "generated": "2026-09-24T20:03:01",
+ "formula_version": "breakout20-trail6-v3",
+ "params_hash": "c4c0d2a48443",
  "universe_hash": "8db95d51aa46",
- "scan_state": "fresh",
+ "scan_state": "degraded",
  "scan_coverage": 100.0,
- "scan_at": "2026-09-22T20:01:15",
- "fresh_until": "2026-09-24T02:01:15",
+ "scan_at": "2026-09-24T20:02:05",
+ "fresh_until": "2026-09-26T02:02:05",
+ "scan_at_utc": "2026-09-24T19:02:05Z",
+ "fresh_until_utc": "2026-09-26T01:02:05Z",
  "scanned": 197,
  "scan_ok": 197,
  "scan_failed": 0,
  "books": {
   "stocks_swing": {
    "title": "⚡ Акции — свинг",
-   "strategy": "breakout20-wide16-all",
-   "since": "2026-08-28",
+   "strategy": "breakout20-wide-pos8",
+   "strategy_universe": "stocks150",
+   "since": "2026-09-06",
    "universe_size": 182,
    "slots": 16,
    "risk_pct": 1.5,
@@ -28,6 +31,7 @@
   "crypto_swing": {
    "title": "🎯 Крипта — свинг",
    "strategy": "breakout20-crypto-quarter",
+   "strategy_universe": "crypto",
    "since": "2026-09-11",
    "universe_size": 15,
    "slots": 8,
@@ -40,7 +44,23 @@
    "trend_sma": 50
   }
  },
+ "universe_mismatch": [
+  {
+   "book": "crypto_swing",
+   "only_in_live": [
+    "NEAR"
+   ],
+   "only_in_spec": [
+    "MATIC"
+   ]
+  }
+ ],
  "retired": [
+  {
+   "strategy": "breakout20-wide16-all",
+   "until": "2026-09-06",
+   "why": "16 слотов при потолке позиции 12% были числом, которого не существует: 16 × 12% = 192% капитала, и книга упиралась в 8 позиций. Потолок 8% даёт реальные 12 слотов. Перебор выходов 06.09 показал, что выигрыш даёт именно потолок, а стоп и трейлинг менять не надо: CAGR 16,71% -> 19,60%, Sharpe 1,20 -> 1,36, просадка 13,4% -> 16,7%, оба нуля 0/200."
+  },
   {
    "strategy": "breakout20-crypto-half",
    "until": "2026-09-11",
